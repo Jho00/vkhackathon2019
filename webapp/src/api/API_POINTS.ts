@@ -1,3 +1,3 @@
 export enum API_POINTS {
-    AUTH = '/'
+    AUTH = '/users/auth'
 }
