@@ -1,4 +1,4 @@
-package com.google.codelabs.mdc.kotlin.shrine
+package ru.stollmanSquad.orbiapp
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

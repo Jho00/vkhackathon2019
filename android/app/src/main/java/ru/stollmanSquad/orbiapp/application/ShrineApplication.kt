@@ -1,4 +1,4 @@
-package com.google.codelabs.mdc.kotlin.shrine.application
+package ru.stollmanSquad.orbiapp.application
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate

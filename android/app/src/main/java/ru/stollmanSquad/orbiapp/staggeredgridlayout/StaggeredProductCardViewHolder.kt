@@ -1,11 +1,11 @@
-package com.google.codelabs.mdc.kotlin.shrine.staggeredgridlayout
+package ru.stollmanSquad.orbiapp.staggeredgridlayout
 
 import android.view.View
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 import com.android.volley.toolbox.NetworkImageView
-import com.google.codelabs.mdc.kotlin.shrine.R
+import ru.stollmanSquad.orbiapp.R
 
 class StaggeredProductCardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

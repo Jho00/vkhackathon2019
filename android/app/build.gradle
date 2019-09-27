@@ -5,14 +5,14 @@ apply plugin: 'kotlin-android-extensions'
 android {
     compileSdkVersion 29
     defaultConfig {
-        applicationId 'ru.stollmanSquad.orbiapp'
+        applicationId 'ru.stollmanSquad'
         minSdkVersion 15
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
-        applicationIdSuffix = 'ru.stollmanSquad'
+        applicationIdSuffix = 'orbiapp'
     }
     buildTypes {
         release {
@@ -21,8 +21,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = kotlin_version
-        targetCompatibility = kotlin_version
+        sourceCompatibility = "1.8"
+        targetCompatibility = "1.8"
     }
     buildToolsVersion = '29.0.2'
 }

@@ -1,10 +1,10 @@
-package com.google.codelabs.mdc.kotlin.shrine
+package ru.stollmanSquad.orbiapp
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 
-import com.google.codelabs.mdc.kotlin.shrine.network.ProductEntry
+import ru.stollmanSquad.orbiapp.network.ProductEntry
 
 /**
  * Adapter used to show a simple grid of products.

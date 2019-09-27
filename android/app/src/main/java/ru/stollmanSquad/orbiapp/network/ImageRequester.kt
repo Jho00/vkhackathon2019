@@ -1,4 +1,4 @@
-package com.google.codelabs.mdc.kotlin.shrine.network
+package ru.stollmanSquad.orbiapp.network
 
 import android.content.Context
 import android.graphics.Bitmap
@@ -8,7 +8,7 @@ import com.android.volley.RequestQueue
 import com.android.volley.toolbox.ImageLoader
 import com.android.volley.toolbox.NetworkImageView
 import com.android.volley.toolbox.Volley
-import com.google.codelabs.mdc.kotlin.shrine.application.ShrineApplication
+import ru.stollmanSquad.orbiapp.application.ShrineApplication
 
 /**
  * Class that handles image requests using Volley.
