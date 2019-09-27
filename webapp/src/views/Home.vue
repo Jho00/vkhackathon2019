@@ -19,7 +19,7 @@
               <div style="padding: 14px;">
                 <span>Войти через ВКонтакте</span>
                 <div class="bottom">
-                  <a :href="`https://oauth.vk.com/authorize?client_id=${$store.state.clientId}&redirect_uri=${redirect_uri}&scope=65536`">
+                  <a :href="`https://oauth.vk.com/authorize?client_id=${$store.state.clientId}&redirect_uri=${redirect_uri}`">
                     <el-button type="primary" class="button">Войти</el-button>
                   </a>
                 </div>
