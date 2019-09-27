@@ -17,14 +17,16 @@ router.get('/auth', function(req, res, next) {
         client_secret: "UvqccxvCevnGOxsjoqFy",
         client_id: "7150584"
       }
-  }).then(json =>
-      res.send(JSON.stringify({
+  }).then(json => 
+      res.send({
         status: "success",
-        access_token: json.access_token })))
-    .catch(err =>
+        access_token: json.data.access_token }))
+    .catch(err => {
+      console.log(err);
       res.send({
         status: "error"
-      }));
+      });
+    });
 });
 
 module.exports = router;
