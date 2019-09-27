@@ -19,8 +19,9 @@ export default new Router({
       component: () => import( './views/Mine.vue')
     },
     {
-      path: '/challenge',
+      path: '/challenge/:id?',
       name: 'challenge',
+      props: true,
       component: () => import( './views/Challenge.vue')
     },
     {

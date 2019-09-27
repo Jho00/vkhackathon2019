@@ -60,8 +60,14 @@
         padding: 6px 24px;
         text-decoration: none;
         text-shadow: 0px 1px 0px #ffffff;
+        opacity: .8;
+        transition: .3s all;
 
         &:hover {
+            opacity: 1;
+        }
+
+        &:active {
             filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e9e9e9', endColorstr='#f9f9f9',GradientType=0);
             background: #e9e9e9 linear-gradient(to bottom, #e9e9e9 5%, #f9f9f9 100%);
         }

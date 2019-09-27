@@ -7,21 +7,31 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     balance: 102,
-    isLogined: false,
-    clientId: '7150584'
+    isLogined: true,
+    clientId: '7150584',
+    guid: localStorage.getItem('guid') || null
   },
   mutations: {
+    error() {},
     incrementBalance(state) {
       state.balance++;
+    },
+    logout(state) {
+      state.isLogined = false;
     }
   },
   actions: {
     auth(context, {code}) {
-      auth(code).then(json => console.log(json));
+      auth(code).then(json => console.log(json)).catch(err => context.commit('error'));
+    },
+
+    createChallenge(context, {challenge}) {
+
     }
   },
   getters: {
     balance: state => state.balance,
+    // isLogined: state => state.guid !== null
     isLogined: state => state.isLogined
   }
 })
