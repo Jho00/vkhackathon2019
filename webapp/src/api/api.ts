@@ -14,6 +14,5 @@ export const auth = (code: string): Promise<AxiosResponse> => axios.get(URL + AP
         "Access-Control-Allow-Credentials": "true",
         "Access-Control-Allow-Methods": "GET,HEAD,OPTIONS,POST,PUT",
         "Access-Control-Allow-Headers": "Access-Control-Allow-Headers, Origin,Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers"
-
-}
+    }
 });

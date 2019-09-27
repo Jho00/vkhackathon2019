@@ -1,42 +1,43 @@
 <template>
     <div id="app">
-        <el-menu v-if="$store.getters.isLogined" :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
+        <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal">
           <router-link to="/" class="r-link">
             <el-menu-item index="/" >
                Главная
             </el-menu-item>
           </router-link>
-          <router-link to="/mine" class="r-link">
+
+          <router-link to="/mine" class="r-link" v-if="$store.getters.isLogined" >
             <el-menu-item index="/mine" >
               Майнить
             </el-menu-item>
           </router-link>
 
-          <router-link to="/challenge" class="r-link">
+          <router-link to="/challenge" class="r-link" v-if="$store.getters.isLogined" >
             <el-menu-item index="/challenge" >
               Витрина испытаний
             </el-menu-item>
           </router-link>
 
-           <router-link to="/my" class="r-link">
+           <router-link to="/my" class="r-link" v-if="$store.getters.isLogined" >
              <el-menu-item index="/my">
                Мои испытания
              </el-menu-item>
            </router-link>
 
-           <router-link to="/profile" class="r-link">
+           <router-link to="/profile" class="r-link" v-if="$store.getters.isLogined" >
               <el-menu-item index="/profile">
                 Профиль
               </el-menu-item>
            </router-link>
 
-           <router-link to="/info" class="r-link">
+           <router-link to="/info" class="r-link" v-if="$store.getters.isLogined" >
               <el-menu-item index="/info">
                   Информация
               </el-menu-item>
            </router-link>
 
-           <balance class="balance"></balance>
+           <balance class="balance" v-if="$store.getters.isLogined" ></balance>
         </el-menu>
         <router-view/>
     </div>

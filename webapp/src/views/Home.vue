@@ -12,7 +12,21 @@
         perferendis porro quaerat quasi ut voluptatibus?</p>
     </div>
     <div v-if="!$store.getters.isLogined">
-      <a :href="`https://oauth.vk.com/authorize?client_id=${$store.state.clientId}&redirect_uri=${redirect_uri}`">Войти</a>
+        <el-row>
+          <el-col :span="6" :offset="9">
+            <el-card :body-style="{ padding: '10px'}">
+              <img src="../assets/vk.svg" class="image">
+              <div style="padding: 14px;">
+                <span>Войти через ВКонтакте</span>
+                <div class="bottom">
+                  <a :href="`https://oauth.vk.com/authorize?client_id=${$store.state.clientId}&redirect_uri=${redirect_uri}`">
+                    <el-button type="primary" class="button">Войти</el-button>
+                  </a>
+                </div>
+              </div>
+            </el-card>
+          </el-col>
+        </el-row>
     </div>
   </div>
 </template>
@@ -34,4 +48,31 @@ export default Vue.extend({
   .home {
     padding-top: 20px;
   }
+
+  .bottom {
+    margin-top: 13px;
+    line-height: 12px;
+  }
+
+  .button {
+    padding: 10px;
+    margin-bottom: 10px;
+    float: right;
+  }
+
+  .image {
+    width: 100%;
+    display: block;
+  }
+
+  .clearfix:before,
+  .clearfix:after {
+    display: table;
+    content: "";
+  }
+
+  .clearfix:after {
+    clear: both
+  }
+
 </style>
