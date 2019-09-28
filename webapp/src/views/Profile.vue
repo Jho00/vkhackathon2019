@@ -1,28 +1,28 @@
 <template>
     <div class="profile">
         <el-row>
-            <span class="name">Жмышенко Альберт</span>
+            <span class="name">{{$store.state.name}}</span>
             <el-avatar class="avatar" size="large"
-                       :src="url"></el-avatar>
+                       :src="$store.state.avatar"></el-avatar>
         </el-row>
 
         <el-row>
             <el-alert
                     class="info-block"
                     :closable="false"
-                    title="Испытаний выполнил: 10"
+                    :title="`Испытаний выполнил: ${$store.state.passedChallengesCount}`"
                     type="success">
             </el-alert>
             <el-alert
                     class="info-block"
                     :closable="false"
-                    title="Испытаний создал: 10"
+                    :title="`Испытаний создал: ${$store.state.ownChallengesCount}`"
                     type="success">
             </el-alert>
             <el-alert
                     class="info-block"
                     :closable="false"
-                    title="Испытаний выпоняю: 10"
+                    :title="`Испытаний выпоняю: ${$store.state.acceptChallengesCount}`"
                     type="info">
             </el-alert>
             <balance class="balance"></balance>
@@ -38,12 +38,6 @@
         components:{
             Balance
         },
-        props: {
-            url: {
-                type: String,
-                default: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
-            }
-        }
     }
 </script>
 
