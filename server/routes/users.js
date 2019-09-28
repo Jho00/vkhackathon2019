@@ -78,12 +78,11 @@ router.post('/add-money', function (req, res, next) {
 	const sendOk = function() {
 		res.send({status: "ok"});
 	};
-	const oid = new ObjectId(id);
 	DBClinet.connect(dbinfo.connStr, function(err, userClient) {
 		userClient
 			.db(dbinfo.db)
 			.collection(dbinfo.usersCollection)
-			.findOne({"_id": oid}, function (err,data) {
+			.findOne({"_id": id}, function (err,data) {
 				if (err) {
 					userClient.close();
 					res.sendStatus = 400;
@@ -94,7 +93,7 @@ router.post('/add-money', function (req, res, next) {
 					userClient
 						.db(dbinfo.db)
 						.collection(dbinfo.usersCollection)
-						.updateOne({"_id": oid}, newvalues, function (err, res) {
+						.updateOne({"_id": id}, newvalues, function (err, res) {
 							if (err) {
 								userClient.close();
 								res.sendStatus = 400;
