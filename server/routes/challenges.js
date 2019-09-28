@@ -74,7 +74,8 @@ router.post('/', function (req, res) {
 						...req.body,
 						money_pull: req.body.num * req.body.cost,
 						users: [ data ],
-						author_id: id
+						author_id: id,
+						status: "passive"
 					}, function(error, data) {
 						if (error) {
 							res.send({ status: "error"});
