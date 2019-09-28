@@ -1,7 +1,7 @@
 <template>
   <div class="home">
     <div v-if="$store.getters.isLogined">
-      <h1>Рабочее название</h1>
+      <h1>ОРБИ Social</h1>
       <p class="text-center">Lorem ipsum dolor sit amet, consectetur adipisicing elit. At delectus dolores doloribus esse et, eveniet
         exercitationem facere fugit inventore maiores minus molestiae mollitia nam necessitatibus officia omnis
         perspiciatis ut voluptatum!</p>
