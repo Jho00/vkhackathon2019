@@ -18,11 +18,17 @@ export default new Vuex.Store({
     },
     logout(state) {
       state.isLogined = false;
+    },
+    setGuid(state, guid) {
+      this.guid = guid;
+      localStorage.setItem('guid', guid);
     }
   },
   actions: {
     auth(context, {code}) {
-      auth(code).then(json => console.log(json)).catch(err => context.commit('error'));
+      auth(code).then(json =>{
+        context.commit('setGuid', json.data.data);
+      }).catch(err => context.commit('error'));
     },
 
     createChallenge(context, {challenge}) {
@@ -31,7 +37,7 @@ export default new Vuex.Store({
   },
   getters: {
     balance: state => state.balance,
-    // isLogined: state => state.guid !== null
-    isLogined: state => state.isLogined
+    isLogined: state => state.guid !== null
+    // isLogined: state => state.isLogined
   }
 })
