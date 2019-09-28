@@ -108,13 +108,39 @@ router.get('/:id', function (req, res, next) {
 
 					getUserData(site_token, user_id).then(usrdb => {
 
-						res.send({
-							status: "success",
-							data: {
-								...usrdb.data.response[0],
-								money
-							}});
-						client.close();
+						client
+							.db(dbinfo.db)
+							.collection(dbinfo.challengesCollection)
+							.find({})
+							.toArray(function (er, challenges) {
+								console.log(challenges);
+								res.send({
+									status: "success",
+									data: {
+										...usrdb.data.response[0],
+										money,
+										"ownChallengesCount":
+											challenges.filter(el => 
+												el.author_id == user_id).length,
+										"acceptChallengesCount":
+											challenges
+												.filter(el =>
+													el.status == "active")
+												.filter(el =>
+													el.users
+													.map(usr => usr._id)
+													.indexOf(user_id) != -1).length,
+										"passedChallengesCount":
+											challenges
+												.filter(el =>
+													el.status == "passed")
+												.filter(el =>
+													el.users
+													.map(usr => usr._id)
+													.indexOf(user_id) != -1).length,
+								}});
+								client.close();
+							});
 					})
 				})
 	})
