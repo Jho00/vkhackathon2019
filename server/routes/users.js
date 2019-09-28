@@ -70,8 +70,8 @@ router.get('/auth', function (req, res, next) {
 });
 
 router.post('/add-money', function (req, res, next) {
-	const count = Number(req.query.count);
-	const id = req.query.user_id;
+	const count = Number(req.body.count);
+	const id = req.body.user_id;
 	const sendOk = function() {
 		res.send({status: "ok"});
 	};
