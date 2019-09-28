@@ -3,12 +3,11 @@
         <div v-if="!id">
             <h1>Витрина испытаний</h1>
             <div class="col-xs-12">
-                <short-challenge name="Lorem ipsum dolor sit amet."
-                                 v-for="i in 20"
-                                 :key="i"
-                                 @click.native="goToChallenge(i)"
-                                 description="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Culpa dignissimos illum impedit nihil sint! Corporis eveniet fugit mollitia perferendis veniam."></short-challenge>
-
+                <short-challenge :name="i.name"
+                                 v-for="i in $store.getters.challenges"
+                                 :key="i._id"
+                                 @click.native="goToChallenge(i._id)"
+                                 :description="i.description"></short-challenge>
             </div>
         </div>
         <div v-else>
@@ -28,6 +27,11 @@
                 type: [String, Number],
                 required: false
             }
+        },
+        mounted() {
+          if (!this.id) {
+              this.$store.dispatch('getChallenges');
+          }
         },
         components: {
             ShortChallenge,

@@ -1,4 +1,5 @@
 export enum API_POINTS {
     AUTH = '/users/auth',
-    CREATE_CHALLENGE = ''
+    BASE_CHALLENGE = '/challenges/',
+    ADD_MONEY = '/users/add-money'
 }
