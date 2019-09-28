@@ -40,6 +40,7 @@
             <balance class="balance" v-if="$store.getters.isLogined"></balance>
             <el-button v-if="$store.getters.isLogined" class="logout pull-right" @click="logout"> Выйти</el-button>
         </el-menu>
+        <br>
         <router-view/>
     </div>
 </template>

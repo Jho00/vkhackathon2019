@@ -42,6 +42,10 @@ export default new Router({
       path: '/redirect',
       name: 'redirect',
       component: () => import( './views/Redirect.vue')
+    },
+    {
+      path: '*',
+      component: () => import( './views/Error.vue')
     }
   ]
 })

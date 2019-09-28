@@ -1,7 +1,11 @@
 <template>
     <div>
-        <div v-show="!createMode">
-            <h1>My</h1>
+        <div class="form" v-show="!createMode">
+            <h1>Мои испытания</h1>
+            <el-tabs v-model="activeName">
+                <el-tab-pane label="Я создал" name="first">Вы пока еще не создали ни одного испытания</el-tab-pane>
+                <el-tab-pane label="Я участвую" name="second">Вы пока еще не присоединилсь ни к одному испытанию</el-tab-pane>
+            </el-tabs>
             <add-challenge-button class="add" v-on:pressed="openModal"></add-challenge-button>
         </div>
         <div class="form" v-show="createMode">
@@ -54,6 +58,7 @@
                     name: '',
                     description: '',
                 },
+                activeName: 'first'
             }
         },
         methods: {
