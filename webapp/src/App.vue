@@ -61,9 +61,9 @@
                 }
             });
 
-            // setInterval(() => {
-            //     this.$store.dispatch('flushBalance');
-            // }, 7000);
+            setInterval(() => {
+                this.$store.dispatch('flushBalance');
+            }, 7000);
         },
         data() {
             return {
