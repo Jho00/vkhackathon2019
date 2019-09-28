@@ -70,12 +70,17 @@ router.post('/', function (req, res) {
 					res.send({ status: "error"});
 				} else {
 
+					let now = new Date(Date.now());
+					let expDate = new Date(now.getTime() + 1000 * 60 * 60 * 24 * req.body.days);
+
 					chgCl.insertOne({
 						...req.body,
 						money_pull: req.body.num * req.body.cost,
 						users: [ data ],
 						author_id: id,
-						status: "passive"
+						status: "passive",
+						created_at: now,
+						expires_at: expDate
 					}, function(error, data) {
 						if (error) {
 							res.send({ status: "error"});
