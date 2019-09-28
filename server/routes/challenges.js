@@ -20,7 +20,7 @@ function clone(obj) {
 /* GET users listing. */
 router.get('/', function (req, res, next) {
 	let id = req.query.challenge_id;
-	let cond = {};
+	let cond = { status: "passive" };
 	if (id) {
 		cond = {'_id' : new ObjectID(id)};
 	}
