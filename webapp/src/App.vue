@@ -64,6 +64,10 @@
             setInterval(() => {
                 this.$store.dispatch('flushBalance');
             }, 7000);
+
+            if(this.$store.getters.isLogined) {
+                this.$store.dispatch('getInfo');
+            }
         },
         data() {
             return {

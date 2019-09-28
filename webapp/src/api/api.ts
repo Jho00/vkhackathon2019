@@ -37,5 +37,11 @@ export const joinChallenge = (user_id: string, challenge_id: string): Promise<Ax
     params: {
         challenge_id: challenge_id,
         user_id: user_id
+          }
+});
+
+export const getInfo = (id: string|null = null): Promise<AxiosResponse>  => axios.get(URL + API_POINTS.USER_INFO, {
+    params: {
+        user_id: id
     }
 });
