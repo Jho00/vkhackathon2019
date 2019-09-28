@@ -65,7 +65,7 @@ router.post('/', function (req, res) {
 				.db(dbinfo.db)
 				.collection(dbinfo.usersCollection);
 
-			usrCl.findOne({ "_id": new ObjectID(id) }, function (err, data) {
+			usrCl.findOne({ "_id": id }, function (err, data) {
 				if (err) {
 					res.send({ status: "error"});
 				} else {
@@ -93,10 +93,11 @@ router.get('/join', function (req, res) {
 	let id = req.query.user_id;
 	let challenge_id = req.query.challenge_id;
 
-	dbclient.connect(dbinfo.connStr, function(err, client) {
+	dbclient.connect(function(err, client) {
 		if (err) {
 			console.log(err);
 			res.send({ status: "error"});
+			dbclient.close();
 			return;
 		}
 		let chgCl = client
@@ -106,19 +107,45 @@ router.get('/join', function (req, res) {
 			.db(dbinfo.db)
 			.collection(dbinfo.usersCollection);
 
-		usrCl.findOne({ "_id": new ObjectID(id) }, function (err, userData) {
-			if (err) {
+		usrCl.findOne({ "_id": id }, function (err, userData) {
+			if (err || !userData) {
 				console.log(err);
 				res.send({ status: "error"});
+				dbclient.close();
 			} else {
-				chgCl.updateOne({'_id': new ObjectID(challenge_id)}, {$push: {'users': userData}}, function (err, data) {
-					if (err) {
-						console.log(err);
+				chgCl.findOne({'_id': new ObjectID(challenge_id)}, function (error, challengeData) {
+					if (error || !challengeData) {
+						console.log(error);
 						res.send({ status: "error"});
+						dbclient.close();
 					} else {
-						res.send({'success': 'ok'});
+						if (userData.money < challengeData.cost) {
+							res.send({ status: "error"});
+							dbclient.close();
+						}
+
+						usrCl.updateOne(
+							{'_id': id },
+							{ $set: { "money": userData.money - challengeData.cost} },
+							function (usrErr, usrData) {
+								if (usrErr) {
+									res.send({ status: "error"});
+									dbclient.close();
+								}
+
+								chgCl.updateOne({'_id': new ObjectID(challenge_id)}, {$push: {'users': userData}}, function (chgErr, data) {
+									if (chgErr) {
+										console.log(chgErr);
+										res.send({ status: "error"});
+										dbclient.close();
+									} else {
+										res.send({ status: "success"});
+										dbclient.close();
+									}
+								})
+							})
 					}
-				})
+				});
 			}
 		})
 	})
