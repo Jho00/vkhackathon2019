@@ -19,8 +19,9 @@ export default new Router({
       component: () => import( './views/Mine.vue')
     },
     {
-      path: '/challenge',
+      path: '/challenge/:id?',
       name: 'challenge',
+      props: true,
       component: () => import( './views/Challenge.vue')
     },
     {
@@ -41,6 +42,10 @@ export default new Router({
       path: '/redirect',
       name: 'redirect',
       component: () => import( './views/Redirect.vue')
+    },
+    {
+      path: '*',
+      component: () => import( './views/Error.vue')
     }
   ]
 })

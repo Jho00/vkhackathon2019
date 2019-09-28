@@ -1,13 +1,68 @@
 <template>
-    <h1>Profile</h1>
+    <div>
+        <el-row>
+            <span class="name">Жмышенко Альберт</span>
+            <el-avatar class="avatar" size="large"
+                       :src="url"></el-avatar>
+        </el-row>
+
+        <el-row>
+            <el-alert
+                    class="info-block"
+                    :closable="false"
+                    title="Испытаний выполнил: 10"
+                    type="success">
+            </el-alert>
+            <el-alert
+                    class="info-block"
+                    :closable="false"
+                    title="Испытаний создал: 10"
+                    type="success">
+            </el-alert>
+            <el-alert
+                    class="info-block"
+                    :closable="false"
+                    title="Испытаний выпоняю: 10"
+                    type="info">
+            </el-alert>
+            <balance class="balance"></balance>
+        </el-row>
+    </div>
 </template>
 
 <script>
+    import Balance from "../components/common/Balance";
+
     export default {
-        name: "Profile"
+        name: "Profile",
+        components:{
+            Balance
+        },
+        props: {
+            url: {
+                type: String,
+                default: 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
+            }
+        }
     }
 </script>
 
-<style scoped>
+<style scoped lang="less">
+    .name {
+        font-size: 2em;
+    }
 
+    .avatar {
+        position: relative;
+        top: 10px;
+        margin-left: 10px;
+    }
+    .info-block {
+        margin: 20px auto;
+        width: 70%;
+    }
+    .balance {
+        transform: scale(3);
+        margin-top: 50px;
+    }
 </style>
