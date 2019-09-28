@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import {auth} from "@/api/api";
+import router from "@/router";
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    balance: 102,
+    balance: Number(localStorage.getItem('balance')) || 0,
     isLogined: true,
     clientId: '7150584',
     guid: localStorage.getItem('guid') || null
@@ -18,9 +19,13 @@ export default new Vuex.Store({
     },
     logout(state) {
       state.isLogined = false;
+      state.guid = null;
+      localStorage.removeItem('guid');
     },
     setGuid(state, guid) {
-      this.guid = guid;
+      state.guid = guid;
+      state.balance = 1000;
+      localStorage.setItem('balance', String(1000));
       localStorage.setItem('guid', guid);
     }
   },
@@ -28,6 +33,7 @@ export default new Vuex.Store({
     auth(context, {code}) {
       auth(code).then(json =>{
         context.commit('setGuid', json.data.data);
+        router.push('/mine');
       }).catch(err => context.commit('error'));
     },
 

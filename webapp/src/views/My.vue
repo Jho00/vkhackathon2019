@@ -3,8 +3,14 @@
         <div class="form" v-show="!createMode">
             <h1>Мои испытания</h1>
             <el-tabs v-model="activeName">
-                <el-tab-pane label="Я создал" name="first">Вы пока еще не создали ни одного испытания</el-tab-pane>
-                <el-tab-pane label="Я участвую" name="second">Вы пока еще не присоединилсь ни к одному испытанию</el-tab-pane>
+                <el-tab-pane label="Я создал" name="first">
+<!--                    Вы пока еще не создали ни одного испытания-->
+                    <challenge-item v-for="i in 3" :key="i" :id="i" description="wgwgwsssssssssssssssssg"></challenge-item>
+                </el-tab-pane>
+                <el-tab-pane label="Я участвую" name="second">
+<!--                    Вы пока еще не присоединилсь ни к одному испытанию-->
+                    <challenge-item v-for="i in 5" :key="i" :id="i" description="wgwgwsssssssssssssssssg"></challenge-item>
+                </el-tab-pane>
             </el-tabs>
             <add-challenge-button class="add" v-on:pressed="openModal"></add-challenge-button>
         </div>
@@ -15,7 +21,7 @@
                     <el-input v-model="challenge.name"></el-input>
                 </el-form-item>
                 <el-form-item required label="Описание испытания" :error="errors.description">
-                    <el-input type="textarea" v-model="challenge.description" ></el-input>
+                    <el-input type="textarea" v-model="challenge.description"></el-input>
                 </el-form-item>
                 <el-form-item label="Количество человек">
                     <el-input-number v-model="challenge.num" :min="1" :max="10"></el-input-number>
@@ -38,11 +44,13 @@
 
 <script>
     import AddChallengeButton from "../components/my/AddChallengeButton";
+    import ChallengeItem from "../components/my/ChallengeItem";
 
     export default {
         name: "My",
         components: {
-            AddChallengeButton
+            AddChallengeButton,
+            ChallengeItem
         },
         data() {
             return {
@@ -69,15 +77,15 @@
                 this.createMode = false
             },
             onSubmit() {
-                if(this.challenge.name.length === 0) {
-                    this.errors.name = 'Выберите название для испытания' ;
+                if (this.challenge.name.length === 0) {
+                    this.errors.name = 'Выберите название для испытания';
                     return;
                 } else {
                     this.errors.name = '';
                 }
 
-                if(this.challenge.description.length === 0) {
-                    this.errors.description = 'Придумайте описание для испытания' ;
+                if (this.challenge.description.length === 0) {
+                    this.errors.description = 'Придумайте описание для испытания';
                     return;
                 } else {
                     this.errors.description = '';
