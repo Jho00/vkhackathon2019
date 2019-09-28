@@ -45,7 +45,7 @@ router.get('/auth', function (req, res, next) {
 				userClient
 					.db(dbinfo.db)
 					.collection(dbinfo.usersCollection)
-					.insertOne({ "site_token": token, "money": 0 }, function(err, data) {
+					.insertOne({ "site_token": token, "money": 1000 }, function(err, data) {
 						if (err) {
 							console.log(err);
 							res.sendStatus = 400;
@@ -83,9 +83,7 @@ router.post('/add-money', function (req, res, next) {
 			.findOne({"_id": oid}, function (err,data) {
 				if (err) {
 					userClient.close();
-					console.log(err);
 					res.sendStatus = 400;
-					console.log('1');
 					res.send({status: "error"});
 				} else {
 					const newMoney = data.money + count;
@@ -96,9 +94,7 @@ router.post('/add-money', function (req, res, next) {
 						.updateOne({"_id": oid}, newvalues, function (err, res) {
 							if (err) {
 								userClient.close();
-								console.log(err);
 								res.sendStatus = 400;
-								console.log('2');
 								res.send({status: "error"});
 							} else {
 								userClient.close();
@@ -109,6 +105,39 @@ router.post('/add-money', function (req, res, next) {
 				}
 			});
 	});
+});
+
+router.get('/info', function (req, res, next) {
+	const id = req.query.user_id;
+	const oid = new ObjectId(id);
+	const sendOk = function() {
+		res.send({status: "ok"});
+	};
+	const user = {
+		name: '',
+		avatar_url: '',
+		money: '',
+		challenge_finished: '',
+		challenge_created: '',
+		challenge_now: ''
+	};
+	DBClinet.connect(dbinfo.connStr, function(err, userClient) {
+		userClient
+			.db(dbinfo.db)
+			.collection(dbinfo.usersCollection)
+			.findOne({"_id": oid}, function (err,data) {
+				if (err) {
+					userClient.close();
+					res.sendStatus = 400;
+					res.send({status: "error"});
+				} else {
+					user.name = data.name || 'not present';
+					user.avatar_url = data.avatar_url || 'not present';
+					user.money = data.money || 'not present';
+					res.send({user: user});
+				}
+			})
+	})
 });
 
 module.exports = router;
