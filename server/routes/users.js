@@ -39,36 +39,30 @@ router.get('/auth', function (req, res, next) {
 				.findOne({ "_id": user_id }, function (error, data) {
 					
 					if (error) {
-						userClient.close();
 						res.send({ status: "error" });
-					} else if (data) {
 						userClient.close();
-						res.send({ status: "success", data: data._id })
+					} else if (data) {
+						res.send({ status: "success", data: data._id });
+						userClient.close();
 					} else {
 						userClient
 							.db(dbinfo.db)
 							.collection(dbinfo.usersCollection)
 							.insertOne({
-									"_id": json.data.user_id.toString(),
+									"_id": user_id,
 									"site_token": token,
 									"money": 1000
-								}, function(err, data) {
+								}, function(err, insertResult) {
 								if (err) {
-									userClient.close();
 									res.send({ status: "error" });
+									userClient.close();
 								}
 
+								res.send({ status: "success", data: user_id });
 								userClient.close();
-								res.send({ status: "success", data: data.insertedId });
 							})
 					}
 				});
-			
-			if (!done) {
-				
-			}
-
-			userClient.close();
 		});
 	})
 		.catch(err => {
