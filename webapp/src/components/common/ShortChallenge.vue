@@ -1,5 +1,5 @@
 <template>
-        <el-col class="card" :span="4">
+        <el-col class="card" :span="4" @click="click">
             <el-card :body-style="{ padding: '0px' }">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/f/fd/Challenge_Icon.svg"
                      class="image">
@@ -24,6 +24,11 @@
             shortDesc() {
                 if (this.description.length < 50) return this.description;
                 return this.description.slice(0, 50) + '...';
+            }
+        },
+        methods: {
+            click() {
+                this.$emit('pressed');
             }
         }
     }
