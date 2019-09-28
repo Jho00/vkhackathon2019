@@ -1,19 +1,23 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import {auth} from "@/api/api";
+import {auth, addMoney, createChallenge, getChallenge} from "@/api/api";
 import router from "@/router";
+import json = Mocha.reporters.json;
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
     balance: Number(localStorage.getItem('balance')) || 0,
+    oldBalance: Number(localStorage.getItem('balance')) || 0,
     isLogined: true,
     clientId: '7150584',
-    guid: localStorage.getItem('guid') || null
+    guid: localStorage.getItem('guid') || null,
+    challenges: []
   },
   mutations: {
     error() {},
+    challengeAdded() {},
     incrementBalance(state) {
       state.balance++;
     },
@@ -27,6 +31,12 @@ export default new Vuex.Store({
       state.balance = 1000;
       localStorage.setItem('balance', String(1000));
       localStorage.setItem('guid', guid);
+    },
+    resetBalances(state) {
+      state.oldBalance = state.balance;
+    },
+    setChallenges(state, ch) {
+      state.challenges = ch;
     }
   },
   actions: {
@@ -38,12 +48,26 @@ export default new Vuex.Store({
     },
 
     createChallenge(context, {challenge}) {
+      createChallenge(challenge).then(json => context.commit('challengeAdded')).catch(json => context.commit('error'));
+    },
 
+    flushBalance(context) {
+      const balance = context.state.balance - context.state.oldBalance;
+      if( balance > 0) {
+        addMoney(balance, context.state.guid).then(json => context.commit('resetBalances')).catch(err => context.commit('error'));
+      }
+    },
+
+    getChallenges(context) {
+      getChallenge().then(json => {
+        context.commit('setChallenges', json.data.data);
+      }).catch(() => context.commit('error'));
     }
   },
   getters: {
     balance: state => state.balance,
-    isLogined: state => state.guid !== null
+    isLogined: state => state.guid !== null,
+    challenges: state => state.challenges
     // isLogined: state => state.isLogined
   }
 })

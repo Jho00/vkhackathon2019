@@ -2,7 +2,7 @@ var axios = require('axios');
 var express = require('express');
 var router = express.Router();
 var dbinfo = require('./dbinfo');
-var usersdb = require('../db/users');
+// var usersdb = require('../db/users');
 var DBClient = require('mongodb').MongoClient;
 var ObjectID = require('mongodb').ObjectID;
 
@@ -19,7 +19,11 @@ function clone(obj) {
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-
+	let id = req.query.challenge_id;
+	let cond = {};
+	if (id) {
+		cond = {'_id' : new ObjectID(id)};
+	}
 	dbclient.connect(function(err, client) {
 		if (err) {
 			console.log(err);
@@ -29,7 +33,7 @@ router.get('/', function (req, res, next) {
 			client
 				.db(dbinfo.db)
 				.collection(dbinfo.challengesCollection)
-				.find({})
+				.find(cond)
 				.toArray(function(error, data) {
 					if (error) {
 						console.log(error);
@@ -63,22 +67,19 @@ router.post('/', function (req, res) {
 
 			usrCl.findOne({ "_id": new ObjectID(id) }, function (err, data) {
 				if (err) {
-					console.log(err);
 					res.send({ status: "error"});
 				} else {
-					console.log("+++++++1");
-					console.log(data);
-					console.log("+++++++");
+
 					chgCl.insertOne({
 						...req.body,
 						money_pull: req.body.num * req.body.cost,
-						users: [ data ]
+						users: [ data ],
+						author_id: id
 					}, function(error, data) {
 						if (error) {
-							console.log(error);
 							res.send({ status: "error"});
 						}
-						console.log(data);
+
 						res.send({status: "success", data: data.insertedId});
 						client.close();
 					});
@@ -86,6 +87,6 @@ router.post('/', function (req, res) {
 			});
 		}
 	});
-})
+});
 
 module.exports = router;

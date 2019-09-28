@@ -17,3 +17,18 @@ export const auth = (code: string): Promise<AxiosResponse> => axios.get(URL + AP
     },
     headers: headers
 });
+
+export const addMoney = (money: number, userId: string|null = ''): Promise<AxiosResponse> => axios.post(URL + API_POINTS.ADD_MONEY, {
+    user_id: userId,
+    count: money
+});
+
+export const createChallenge = (obj: any): Promise<AxiosResponse> => axios.post(URL + API_POINTS.BASE_CHALLENGE, {
+   ...obj
+});
+
+export const getChallenge = (id: string|null = null): Promise<AxiosResponse>  => axios.get(URL + API_POINTS.BASE_CHALLENGE, {
+    params: {
+        challenge_id: id
+    }
+});
