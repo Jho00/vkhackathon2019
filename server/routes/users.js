@@ -136,6 +136,12 @@ router.get('/info', function (req, res, next) {
 						return;
 					}
 
+					if (!result) {
+						res.send({ status: "error" });
+						client.close();
+						return;
+					}
+
 					const { site_token, money } = result;
 
 					getUserData(site_token, user_id).then(usrdb => {
