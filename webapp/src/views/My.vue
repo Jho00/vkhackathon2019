@@ -26,7 +26,7 @@
                     <el-input type="textarea" v-model="challenge.description"></el-input>
                 </el-form-item>
                 <el-form-item label="Количество человек">
-                    <el-input-number v-model="challenge.num" :min="1" :max="10"></el-input-number>
+                    <el-input-number v-model="challenge.num" :min="2" :max="10"></el-input-number>
                 </el-form-item>
                 <el-form-item label="Дней на испытание">
                     <el-input-number v-model="challenge.days" :min="1" :max="5"></el-input-number>
