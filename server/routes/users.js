@@ -91,13 +91,16 @@ router.get('/info', function (req, res, next) {
 				.collection(dbinfo.usersCollection)
 				.findOne({"_id": user_id}, function (error, result) {
 
+
 					if (error) {
 						res.send({status: "error"});
 						client.close();
+
 						return;
 					}
 
 					const { site_token, money } = result;
+
 					getUserData(site_token, user_id).then(usrdb => {
 
 						client
