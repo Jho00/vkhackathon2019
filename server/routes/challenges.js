@@ -50,7 +50,7 @@ router.get('/', function (req, res, next) {
 
 router.post('/', function (req, res) {
 
-	let id = req.query.user_id;
+	let id = req.body.user_id;
 
 	dbclient.connect(function(err, client) {
 		if (err) {
