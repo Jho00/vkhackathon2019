@@ -1,4 +1,4 @@
-package ru.stollmanSquad.orbiapp
+package ru.stollmanSquad.orbiapp.views
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,8 +11,10 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import ru.stollmanSquad.orbiapp.R
 import ru.stollmanSquad.orbiapp.fragments.*
-import ru.stollmanSquad.orbiapp.fragments.navigator.NavigationHost
+import ru.stollmanSquad.orbiapp.views.fragments.*
+import ru.stollmanSquad.orbiapp.views.fragments.navigator.NavigationHost
 
 class MainActivity : AppCompatActivity(), NavigationHost {
 

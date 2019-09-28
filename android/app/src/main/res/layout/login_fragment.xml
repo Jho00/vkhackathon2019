@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/loginPageBackgroundColor"
-    tools:context=".fragments.LoginFragment"
+    tools:context=".views.fragments.LoginFragment"
     android:orientation="vertical"
     android:gravity="center"
     android:id="@+id/LoginFragment">

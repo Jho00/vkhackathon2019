@@ -1,4 +1,4 @@
-package ru.stollmanSquad.orbiapp.adapters
+package ru.stollmanSquad.orbiapp.views.adapters
 
 import java.util.ArrayList;
 import android.content.Context;

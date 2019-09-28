@@ -1,4 +1,4 @@
-package ru.stollmanSquad.orbiapp.fragments
+package ru.stollmanSquad.orbiapp.views.fragments
 
 import android.os.Bundle
 import android.util.Log
@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.ListView
 import androidx.fragment.app.Fragment
 import ru.stollmanSquad.orbiapp.R
-import ru.stollmanSquad.orbiapp.adapters.ChallengesListAdapter
+import ru.stollmanSquad.orbiapp.views.adapters.ChallengesListAdapter
 import ru.stollmanSquad.orbiapp.models.Challenge
 
 /**

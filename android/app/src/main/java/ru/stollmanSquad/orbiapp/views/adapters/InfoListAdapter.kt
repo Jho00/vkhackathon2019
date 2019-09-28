@@ -1,9 +1,8 @@
-package ru.stollmanSquad.orbiapp.adapters
+package ru.stollmanSquad.orbiapp.views.adapters
 
 import android.app.Activity
 import java.util.ArrayList;
 import android.content.Context;
-import android.util.Log
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +11,6 @@ import android.widget.ImageView
 import android.widget.TextView;
 import ru.stollmanSquad.orbiapp.R
 import ru.stollmanSquad.orbiapp.models.Info
-import android.widget.EditText
-
-
 
 
 class InfoListAdapter(

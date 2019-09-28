@@ -1,4 +1,4 @@
-package ru.stollmanSquad.orbiapp.application
+package ru.stollmanSquad.orbiapp.views.application
 
 import android.app.Application
 import androidx.appcompat.app.AppCompatDelegate

@@ -1,4 +1,4 @@
-package ru.stollmanSquad.orbiapp.fragments
+package ru.stollmanSquad.orbiapp.views.fragments
 
 import android.app.Activity
 import android.os.Bundle

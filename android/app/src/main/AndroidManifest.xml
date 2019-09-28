@@ -12,10 +12,10 @@
         android:label="@string/MainAppName"
         android:roundIcon="@android:mipmap/sym_def_app_icon"
         android:supportsRtl="true"
-        android:name="ru.stollmanSquad.orbiapp.application.MainApplication"
+        android:name="ru.stollmanSquad.orbiapp.views.application.MainApplication"
         android:theme="@style/Theme.OrbiApp"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".MainActivity">
+        <activity android:name=".views.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

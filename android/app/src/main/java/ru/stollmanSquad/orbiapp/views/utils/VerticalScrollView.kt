@@ -1,4 +1,4 @@
-package ru.stollmanSquad.orbiapp.utils
+package ru.stollmanSquad.orbiapp.views.utils
 
 
 import android.content.Context
