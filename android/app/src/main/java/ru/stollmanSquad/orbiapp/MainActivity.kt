@@ -2,16 +2,19 @@ package ru.stollmanSquad.orbiapp
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.vk.api.sdk.VK
 import com.vk.api.sdk.auth.VKAccessToken
 import com.vk.api.sdk.auth.VKAuthCallback
-import com.vk.api.sdk.auth.VKScope
 import android.util.Log
+import android.view.View
+import android.widget.Toast
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import ru.stollmanSquad.orbiapp.fragments.*
+import ru.stollmanSquad.orbiapp.fragments.navigator.NavigationHost
 
-class MainActivity : AppCompatActivity(), NavigationHost{
+class MainActivity : AppCompatActivity(), NavigationHost {
 
     private val TAG: String = MainActivity::class.java.simpleName
 
@@ -20,21 +23,44 @@ class MainActivity : AppCompatActivity(), NavigationHost{
         setContentView(R.layout.main_activity)
 
         if (savedInstanceState == null) {
-            supportFragmentManager
-                    .beginTransaction()
-                    .add(R.id.container, LoginFragment())
-                    .commit()
+            navigateTo(LoginFragment(), false)
         }
+        setUpMenuBtnEvents()
+    }
 
+    private fun setUpMenuBtnEvents(){
+        val nav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        nav.setOnNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.action_mining -> {
+                    navigateTo(MiningFragment(), false)
+                }
+                R.id.action_challenge -> {
+                    navigateTo(ChallengesFragment(), false)
+                }
+                R.id.action_my_challenges ->{
+                    navigateTo(MainChallengesFragment(), false)
+                }
+                R.id.action_account -> {
+                    navigateTo(AccountFragment(), false)
+                }
+                R.id.action_info -> {
+                    navigateTo(InfoFragment(), false)
+                }
+            }
+            true
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         val callback = object: VKAuthCallback {
             override fun onLogin(token: VKAccessToken) {
                 Log.d(TAG, "токен получен: ${token.accessToken}")
+                navigateTo(ChallengesFragment(), false)
             }
 
             override fun onLoginFailed(errorCode: Int) {
+                Toast.makeText(baseContext, "Ошибка", Toast.LENGTH_SHORT).show()
                 Log.d(TAG, "код ошибки: $errorCode")
             }
         }
@@ -57,7 +83,16 @@ class MainActivity : AppCompatActivity(), NavigationHost{
         if (addToBackstack) {
             transaction.addToBackStack(null)
         }
-
         transaction.commit()
+
+
+        val nav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+
+        if(fragment is LoginFragment){
+            nav.visibility = View.GONE
+        }else{
+            nav.visibility = View.VISIBLE
+            Log.d(TAG, "view: ${fragment.javaClass.canonicalName}")
+        }
     }
 }

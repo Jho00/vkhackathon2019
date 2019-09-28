@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/MainChallengesBtn"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_marginVertical="0dp"
+            android:layout_weight="1"
+            android:text="@string/MainChallenges"
+            app:cornerRadius="0dp"
+            android:insetTop="0dp"
+            />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/ComplitedChallengesBtn"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:text="@string/MainChallengesCompleted"
+            android:layout_weight="1"
+            app:cornerRadius="0dp"
+            android:insetTop="0dp"
+            />
+    </LinearLayout>
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/main_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/challenges_fragment"
+            android:id="@+id/MainChallengesList" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:src="@drawable/baseline_add_24"
+            app:fabSize="normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="16dp"
+            app:borderWidth="0dp"
+            app:backgroundTint ="@color/colorPrimary"
+            app:layout_anchor="@id/MainChallengesList"
+            app:layout_anchorGravity="bottom|right|end"
+            />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+</LinearLayout>

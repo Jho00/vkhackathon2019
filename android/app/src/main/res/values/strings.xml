@@ -1,6 +1,14 @@
 <resources>
+    <integer name="com_vk_sdk_AppId">7150584</integer>
+
     <string name="MainAppName">OrbiApp</string>
+    <string name="SampleText">Sample</string>
     <string name="LoginText">Войти через Вконтакте</string>
     <string name="MiningText">Майнить</string>
-    <integer name="com_vk_sdk_AppId">7150584</integer>
+    <string name="MainChallenges">Мои</string>
+    <string name="MainChallengesCompleted">Выполненные</string>
+    <string name="LogOutText">Выход</string>
+    <string name="FirstName">Имя</string>
+    <string name="LastName">Фамилия</string>
+    <string name="Stroke">Инсульт</string>
 </resources>

@@ -2,15 +2,29 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:gravity="center"
-    >
+    android:gravity="center">
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="@dimen/MiningButtonSize"
+    <android.widget.Button
+        android:id="@+id/MiningButton"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/MiningButtonSize"
         android:layout_gravity="center"
+        android:textSize="20sp"
         android:text="@string/MiningText"
+        android:background="@drawable/round_fiber_manual_record_24"
+        android:insetTop="0dp"
+        android:insetBottom="0dp"
         />
+    <TextView
+        android:id="@+id/MiningCoins"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/SampleText"
+        android:textSize="24sp"
+        android:textColor="@color/black_light"
+        android:textAlignment="center"
+        />
+
 </LinearLayout>

@@ -1,4 +1,4 @@
-package ru.stollmanSquad.orbiapp
+package ru.stollmanSquad.orbiapp.fragments.navigator
 
 import androidx.fragment.app.Fragment
 

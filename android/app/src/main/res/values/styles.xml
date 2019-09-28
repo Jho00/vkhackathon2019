@@ -3,25 +3,9 @@
     <!-- Base application theme. -->
     <style name="Theme.OrbiApp" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
-<!--        <item name="colorPrimary">@color/colorPrimary</item>-->
-<!--        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
-<!--        <item name="colorAccent">@color/colorAccent</item>-->
-
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-        <!-- AppCompat Attributes -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-
-        <!-- AppCompat Control Attributes -->
-        <!-- Other control states (not in this example) -->
-        <item name="colorButtonNormal">@color/colorPrimary</item>
-        <item name="colorControlNormal">@color/colorPrimary</item>
-        <item name="colorControlActivated">@color/colorPrimary</item>
-        <item name="colorControlHighlight">@color/colorPrimary</item>
-        <!---->
-        <!-- AppCompat Dialog Attributes -->
     </style>
 
     <style name="Widget.OrbiApp.Toolbar" parent="Widget.AppCompat.Toolbar">
@@ -30,13 +14,5 @@
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
     </style>
 
-    <style name="Theme.VKButtonStyle" parent="android:Widget.Button">
-        <item name="android:background">@color/vkButtonBackground</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorPrimary">@color/vkButtonBackground</item>
-        <item name="colorButtonNormal">@color/vkButtonBackground</item>
-        <item name="colorControlNormal">@color/vkButtonBackground</item>
-        <item name="colorControlActivated">@color/vkButtonBackground</item>
-    </style>
 
 </resources>

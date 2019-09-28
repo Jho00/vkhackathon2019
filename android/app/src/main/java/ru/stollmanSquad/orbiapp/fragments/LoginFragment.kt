@@ -1,14 +1,14 @@
-package ru.stollmanSquad.orbiapp
+package ru.stollmanSquad.orbiapp.fragments
 
 import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import androidx.fragment.app.Fragment
 import com.vk.api.sdk.VK
 import com.vk.api.sdk.auth.VKScope
+import ru.stollmanSquad.orbiapp.R
 
 /**
  * Fragment representing the login screen for Shrine.
@@ -21,12 +21,9 @@ class LoginFragment : Fragment() {
         // Inflate the layout for this fragment
 
         // Snippet from "Navigate to the next Fragment" section goes here.
-
-
-
         val view = inflater.inflate(R.layout.login_fragment, container, false)
 
-        val loginBtn = view.findViewById<Button>(R.id.LoginVKBtn)
+        val loginBtn = view.findViewById<com.google.android.material.button.MaterialButton>(R.id.LoginVKBtn)
         loginBtn.setOnClickListener{
             LoginVKBtnPress()
         }
