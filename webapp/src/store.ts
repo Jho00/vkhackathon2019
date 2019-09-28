@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import {auth, addMoney, createChallenge, getChallenge,getInfo, joinChallenge, getMyChallenges} from "@/api/api";
+import {auth, addMoney, createChallenge, getChallenge,getInfo, joinChallenge, getMyChallenges, getAcceptChallenges} from "@/api/api";
 import router from "@/router";
 
 Vue.use(Vuex)
@@ -55,6 +55,9 @@ export default new Vuex.Store({
     },
     setMyChallenges(state, challenges) {
       state.myChallenges = challenges;
+    },
+    setAcceptChallenges(state, challenges) {
+      state.activeChallenges = challenges;
     }
   },
   actions: {
@@ -99,6 +102,12 @@ export default new Vuex.Store({
     getMyChallenges(context) {
       getMyChallenges(context.state.guid).then(json => {
         context.commit('setMyChallenges', json.data.data);
+      }).catch(err => context.commit('error'))
+    },
+
+    getAcceptChallenges(context) {
+      getAcceptChallenges(context.state.guid).then(json => {
+        context.commit('setAcceptChallenges', json.data.data);
       }).catch(err => context.commit('error'))
     }
   },

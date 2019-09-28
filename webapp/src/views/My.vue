@@ -71,6 +71,7 @@
             });
 
             this.$store.dispatch('getMyChallenges');
+            this.$store.dispatch('getAcceptChallenges');
         },
         data() {
             return {
