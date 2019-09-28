@@ -20,7 +20,7 @@
                 <el-form-item label="Количество человек">
                     <el-input-number v-model="challenge.num" :min="1" :max="10"></el-input-number>
                 </el-form-item>
-                <el-form-item label="Количество на испытание">
+                <el-form-item label="Дней на испытание">
                     <el-input-number v-model="challenge.days" :min="1" :max="5"></el-input-number>
                 </el-form-item>
                 <el-form-item label="Сумма взноса">
