@@ -179,4 +179,37 @@ router.get('/my', function(req, res) {
 	})
 });
 
+router.get('/accept', function (req, res) {
+	let user_id = req.query.user_id;
+
+	dbclient.connect(function(connErr, client) {
+		if (connErr) {
+			console.log(connErr);
+			res.send({ status: "error" });
+			dbclient.close();
+		}
+
+		client
+			.db(dbinfo.db)
+			.collection(dbinfo.challengesCollection)
+			.find({
+				users: {
+					$elemMatch: {
+						"_id": user_id
+					}
+				}
+			})
+			.toArray(function (chgErr, accChgs) {
+				if (chgErr) {
+					console.log(chgErr);
+					res.send({ status: "error" });
+					dbclient.close();
+				}
+
+				res.send({ status: "success", data: accChgs });
+				dbclient.close();
+			})
+	})
+})
+
 module.exports = router;
