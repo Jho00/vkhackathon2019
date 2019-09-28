@@ -22,17 +22,26 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="48dp"
             android:layout_marginBottom="16dp"
-            app:srcCompat="@drawable/shr_logo"
-            android:contentDescription="@string/shr_logo_content_description"  />
+            android:contentDescription="@string/MainAppName"
+            app:srcCompat="@android:drawable/ic_menu_info_details" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="132dp"
-            android:text="@string/shr_app_name"
+            android:text="@string/MainAppName"
             android:textAllCaps="true"
             android:textSize="16sp" />
+
+        <Button
+            android:layout_width="@dimen/PrimaryButtonWidth"
+            android:layout_height="@dimen/PrimaryButtonHeight"
+            android:text="@string/LoginText"
+            android:backgroundTint="@color/vkButtonBackground"
+            android:layout_gravity="center"
+            android:id="@+id/LoginVKBtn"
+            />
 
         <!-- Snippet from "Add text fields" section goes here. -->
 
