@@ -89,4 +89,39 @@ router.post('/', function (req, res) {
 	});
 });
 
+router.get('/join', function (req, res) {
+	let id = req.query.user_id;
+	let challenge_id = req.query.challenge_id;
+
+	dbclient.connect(dbinfo.connStr, function(err, client) {
+		if (err) {
+			console.log(err);
+			res.send({ status: "error"});
+			return;
+		}
+		let chgCl = client
+			.db(dbinfo.db)
+			.collection(dbinfo.challengesCollection);
+		let usrCl = client
+			.db(dbinfo.db)
+			.collection(dbinfo.usersCollection);
+
+		usrCl.findOne({ "_id": new ObjectID(id) }, function (err, userData) {
+			if (err) {
+				console.log(err);
+				res.send({ status: "error"});
+			} else {
+				chgCl.updateOne({'_id': new ObjectID(challenge_id)}, {$push: {'users': userData}}, function (err, data) {
+					if (err) {
+						console.log(err);
+						res.send({ status: "error"});
+					} else {
+						res.send({'success': 'ok'});
+					}
+				})
+			}
+		})
+	})
+});
+
 module.exports = router;
