@@ -79,12 +79,8 @@ router.get('/auth', function (req, res, next) {
 });
 
 /* GET users listing. */
-router.get('/:id', function (req, res, next) {
-	let user_id = req.params.id;
-
-	if (user_id == "auth") {
-		next();
-	}
+router.get('/info', function (req, res, next) {
+	let user_id = req.query.id;
 
 	DBClinet.connect(
 			dbinfo.connStr, {
