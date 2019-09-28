@@ -134,16 +134,34 @@ router.get('/join', function (req, res) {
 									dbclient.close();
 								}
 
-								chgCl.updateOne({'_id': new ObjectID(challenge_id)}, {$push: {'users': userData}}, function (chgErr, data) {
-									if (chgErr) {
-										console.log(chgErr);
-										res.send({ status: "error"});
-										dbclient.close();
-									} else {
-										res.send({ status: "success"});
-										dbclient.close();
+								let updateCondition = {
+									$push: {
+										'users': userData
 									}
-								})
+								}
+
+								if (challengeData.num >= challengeData.users.length - 1) {
+									updateCondition = {
+										...updateCondition,
+										$set: {
+											status: "active"
+										}
+									}
+								}
+
+								chgCl.updateOne(
+									{'_id': new ObjectID(challenge_id)},
+									updateCondition,
+									function (chgErr, data) {
+										if (chgErr) {
+											console.log(chgErr);
+											res.send({ status: "error"});
+											dbclient.close();
+										} else {
+											res.send({ status: "success"});
+											dbclient.close();
+										}
+									})
 							})
 					}
 				});
