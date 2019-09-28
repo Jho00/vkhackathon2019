@@ -6,4 +6,5 @@ export enum API_POINTS {
     USER_INFO = '/users/info',
     MY_CHALLENGE = '/challenges/my',
     ACCEPTED_CHALLENGE = '/challenges/accept',
+    VOTE = '/challenge/vote'
 }

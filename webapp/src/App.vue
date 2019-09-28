@@ -31,11 +31,11 @@
                 </el-menu-item>
             </router-link>
 
-            <router-link to="/info" class="r-link" v-if="$store.getters.isLogined">
-                <el-menu-item index="/info">
-                    Информация
-                </el-menu-item>
-            </router-link>
+<!--            <router-link to="/info" class="r-link" v-if="$store.getters.isLogined">-->
+<!--                <el-menu-item index="/info">-->
+<!--                    Информация-->
+<!--                </el-menu-item>-->
+<!--            </router-link>-->
 
             <balance class="balance" v-if="$store.getters.isLogined"></balance>
             <el-button v-if="$store.getters.isLogined" class="logout pull-right" @click="logout"> Выйти</el-button>

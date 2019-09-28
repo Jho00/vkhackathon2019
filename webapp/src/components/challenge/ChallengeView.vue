@@ -51,7 +51,7 @@
             }).catch(() => {
                 this.$store.commit('error');
                 this.$router.push('/err');
-            })
+            });
             this.$store.subscribe(mutation => {
                 if(mutation.type === 'challengeJoined') {
                     this.$message({

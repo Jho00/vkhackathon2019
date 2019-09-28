@@ -57,3 +57,8 @@ export const getAcceptChallenges = (id: string|null = null): Promise<AxiosRespon
         user_id: id
     }
 });
+
+export const voteC = (challenge_id: string, users: any): Promise<AxiosResponse> => axios.post(URL + API_POINTS.VOTE, {
+    challenge_id: challenge_id,
+    users: users
+});

@@ -44,6 +44,12 @@ export default new Router({
       component: () => import( './views/Redirect.vue')
     },
     {
+      path: '/vote/:id',
+      props: true,
+      name: 'vote',
+      component: () => import( './views/Vote.vue')
+    },
+    {
       path: '*',
       component: () => import( './views/Error.vue')
     }
