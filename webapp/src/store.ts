@@ -52,6 +52,9 @@ export default new Vuex.Store({
       state.passedChallengesCount = user.passedChallengesCount;
       state.ownChallengesCount = user.ownChallengesCount;
       state.acceptChallengesCount = user.acceptChallengesCount;
+      if (user.expiredChallenges && user.expiredChallenges.length > 0) {
+        router.push(`/vote/${user.expiredChallenges[0]}`);
+      }
     },
     setMyChallenges(state, challenges) {
       state.myChallenges = challenges;
