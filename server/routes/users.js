@@ -74,7 +74,7 @@ router.get('/auth', function (req, res, next) {
 
 /* GET users listing. */
 router.get('/info', function (req, res, next) {
-	let user_id = req.query.id;
+	let user_id = req.query.user_id;
 
 	DBClinet.connect(
 			dbinfo.connStr, {
@@ -89,13 +89,15 @@ router.get('/info', function (req, res, next) {
 			client
 				.db(dbinfo.db)
 				.collection(dbinfo.usersCollection)
-				.findOne({"_id": user_id}, function (error, { site_token, money }) {
+				.findOne({"_id": user_id}, function (error, result) {
 
 					if (error) {
 						res.send({status: "error"});
 						client.close();
+						return;
 					}
 
+					const { site_token, money } = result;
 					getUserData(site_token, user_id).then(usrdb => {
 
 						client
