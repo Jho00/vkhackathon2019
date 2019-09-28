@@ -72,7 +72,6 @@ router.get('/auth', function (req, res, next) {
 		});
 });
 
-<<<<<<< HEAD
 router.post('/add-money', function (req, res, next) {
 	const count = Number(req.body.count);
 	const id = req.body.user_id;
@@ -111,9 +110,7 @@ router.post('/add-money', function (req, res, next) {
 	});
 });
 
-=======
 /* GET users listing. */
->>>>>>> 50d0776572854288f0e47e3947c51461300e0708
 router.get('/info', function (req, res, next) {
 	let user_id = req.query.user_id;
 
