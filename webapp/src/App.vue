@@ -54,9 +54,9 @@
         mounted() {
             this.$store.subscribe(mutation => {
                 if(mutation.type === 'error') {
-                    this.$notify.error({
-                        title: 'Ошибка',
-                        message: 'Что-то пошло не так. Обновите страницу'
+                    this.$message({
+                        type: 'error',
+                        message: 'Что-то пошло не так. Попробуйте обновить страницу или зайти на сайт заново'
                     });
                 }
             })

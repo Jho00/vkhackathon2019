@@ -2,7 +2,8 @@ import axios, {AxiosResponse} from "axios";
 // @ts-ignore
 import {API_POINTS} from "@/api/API_POINTS";
 
-const URL = 'http://95.213.39.133:3000';
+// const URL = 'http://95.213.39.133:3000';
+const URL = 'http://127.0.0.1:3000';
 const headers = {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Credentials": "true",
