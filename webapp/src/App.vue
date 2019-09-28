@@ -59,7 +59,11 @@
                         message: 'Что-то пошло не так. Попробуйте обновить страницу или зайти на сайт заново'
                     });
                 }
-            })
+            });
+
+            setInterval(() => {
+                this.$store.dispatch('flushBalance');
+            }, 7000);
         },
         data() {
             return {
