@@ -45,3 +45,9 @@ export const getInfo = (id: string|null = null): Promise<AxiosResponse>  => axio
         user_id: id
     }
 });
+
+export const getMyChallenges = (id: string|null = null): Promise<AxiosResponse>  => axios.get(URL + API_POINTS.MY_CHALLENGE, {
+    params: {
+        user_id: id
+    }
+});

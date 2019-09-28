@@ -1,5 +1,5 @@
 <template>
-    <el-card class="box-card">
+    <el-card class="box-card" :body-style="{display: 'none'}">
         <div slot="header" class="clearfix">
             <span class="pull-left">{{name}}</span>
             <el-button style="float: right; padding: 3px 0" type="text">
@@ -7,9 +7,6 @@
                     Посмотреть
                 </router-link>
             </el-button>
-        </div>
-        <div slot="body" class="clearfix">
-            <p>{{description}}</p>
         </div>
     </el-card>
 </template>
@@ -27,27 +24,13 @@
                 default: 'Name'
             },
             description: {
-                type: String,
-                default: ""
+                type: String
             }
         }
     }
 </script>
 
 <style scoped>
-    .name {
-        text-align: left !important;
-    }
-
-    .clearfix:before,
-    .clearfix:after {
-        display: table;
-        content: "";
-    }
-
-    .clearfix:after {
-        clear: both
-    }
 
     .box-card {
         width: 480px;

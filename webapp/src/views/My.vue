@@ -4,12 +4,14 @@
             <h1>Мои испытания</h1>
             <el-tabs v-model="activeName">
                 <el-tab-pane label="Я создал" name="first">
-<!--                    Вы пока еще не создали ни одного испытания-->
-                    <challenge-item class="item" v-for="i in 3" :key="i" :id="i" description="wgwgwsssssssssssssssssg"></challenge-item>
+                    <challenge-item v-if="my.length > 0" class="item"
+                                    v-for="i in my" :id="i._id" :key="i._id" :description="i.description" :name="i.name"></challenge-item>
+                    <p v-if="my.length === 0" >Вы пока еще не создали ни одного испытания</p>
                 </el-tab-pane>
                 <el-tab-pane label="Я участвую" name="second">
-<!--                    Вы пока еще не присоединилсь ни к одному испытанию-->
-                    <challenge-item class="item" v-for="i in 5" :key="i" :id="i" description="wgwgwsssssssssssssssssg"></challenge-item>
+                    <challenge-item v-if="active.length > 0" class="item"
+                                    v-for="i in active" :id="i._id" :key="i._id" :description="i.description" :name="i.name"></challenge-item>
+                    <p v-if="active.length === 0">Вы пока еще не присоединилсь ни к одному испытанию</p>
                 </el-tab-pane>
             </el-tabs>
             <add-challenge-button class="add" v-on:pressed="openModal"></add-challenge-button>
@@ -53,20 +55,22 @@
             ChallengeItem
         },
         mounted() {
-          this.$store.subscribe(mutation => {
-              if (mutation.type === 'challengeAdded') {
-                  this.$message({
-                      type: 'success',
-                      message: 'Добавлено успешно!'
-                  });
-                  this.createMode = false;
-                  this.challenge.name = '';
-                  this.challenge.description = '';
-                  this.challenge.num = 2;
-                  this.challenge.days = 3;
-                  this.challenge.cost = 100;
-              }
-          })
+            this.$store.subscribe(mutation => {
+                if (mutation.type === 'challengeAdded') {
+                    this.$message({
+                        type: 'success',
+                        message: 'Добавлено успешно!'
+                    });
+                    this.createMode = false;
+                    this.challenge.name = '';
+                    this.challenge.description = '';
+                    this.challenge.num = 2;
+                    this.challenge.days = 3;
+                    this.challenge.cost = 100;
+                }
+            });
+
+            this.$store.dispatch('getMyChallenges');
         },
         data() {
             return {
@@ -109,6 +113,14 @@
                 }
 
                 this.$store.dispatch('createChallenge', {challenge: this.challenge});
+            }
+        },
+        computed: {
+            my() {
+                return this.$store.getters.myChallenges;
+            },
+            active() {
+                return this.$store.getters.activeChallenges;
             }
         }
     }

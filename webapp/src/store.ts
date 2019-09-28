@@ -1,9 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import {auth, addMoney, createChallenge, getChallenge,getInfo, joinChallenge} from "@/api/api";
+import {auth, addMoney, createChallenge, getChallenge,getInfo, joinChallenge, getMyChallenges} from "@/api/api";
 import router from "@/router";
-import json = Mocha.reporters.json;
-
 
 Vue.use(Vuex)
 
@@ -19,7 +17,9 @@ export default new Vuex.Store({
     avatar: '',
     passedChallengesCount: 0,
     ownChallengesCount: 0,
-    acceptChallengesCount: 0
+    acceptChallengesCount: 0,
+    myChallenges: [],
+    activeChallenges: []
   },
   mutations: {
     error() {},
@@ -52,6 +52,9 @@ export default new Vuex.Store({
       state.passedChallengesCount = user.passedChallengesCount;
       state.ownChallengesCount = user.ownChallengesCount;
       state.acceptChallengesCount = user.acceptChallengesCount;
+    },
+    setMyChallenges(state, challenges) {
+      state.myChallenges = challenges;
     }
   },
   actions: {
@@ -91,13 +94,21 @@ export default new Vuex.Store({
       getInfo(context.state.guid).then(json => {
         context.commit('setPersonalData', json.data.data);
       }).catch(err => context.commit('error'));
+    },
+
+    getMyChallenges(context) {
+      getMyChallenges(context.state.guid).then(json => {
+        context.commit('setMyChallenges', json.data.data);
+      }).catch(err => context.commit('error'))
     }
   },
   getters: {
     balance: state => state.balance,
     isLogined: state => state.guid !== null,
     challenges: state => state.challenges,
-    userId: state => state.guid
+    userId: state => state.guid,
+    myChallenges: state => state.myChallenges,
+    activeChallenges: state => state.activeChallenges,
     // isLogined: state => state.isLogined
   }
 })
