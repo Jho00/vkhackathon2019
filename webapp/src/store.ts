@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import {auth, addMoney, createChallenge, getChallenge, getInfo} from "@/api/api";
+import {auth, addMoney, createChallenge, getChallenge,getInfo, joinChallenge} from "@/api/api";
 import router from "@/router";
 import json = Mocha.reporters.json;
 
@@ -24,6 +24,7 @@ export default new Vuex.Store({
   mutations: {
     error() {},
     challengeAdded() {},
+    challengeJoined() {},
     incrementBalance(state) {
       state.balance++;
     },
@@ -79,6 +80,15 @@ export default new Vuex.Store({
       }).catch(() => context.commit('error'));
     },
 
+
+    joinChallenge(context, {challenge_id}) {
+      if (context.state.guid === null) return;
+      joinChallenge(context.state.guid, challenge_id).then(json => {
+        context.commit('challengeJoined');
+      }).catch(() => context.commit('error'));
+    },
+
+
     getInfo(context) {
       getInfo(context.state.guid).then(json => {
         context.commit('setPersonalData', json.data.data);
@@ -88,7 +98,8 @@ export default new Vuex.Store({
   getters: {
     balance: state => state.balance,
     isLogined: state => state.guid !== null,
-    challenges: state => state.challenges
+    challenges: state => state.challenges,
+    userId: state => state.guid
     // isLogined: state => state.isLogined
   }
 })

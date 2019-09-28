@@ -27,10 +27,17 @@ export const createChallenge = (obj: any): Promise<AxiosResponse> => axios.post(
    ...obj
 });
 
-export const getChallenge = (id: string|null = null): Promise<AxiosResponse>  => axios.get(URL + API_POINTS.BASE_CHALLENGE, {
+export const getChallenge = (id: string|null = null): Promise<AxiosResponse> => axios.get(URL + API_POINTS.BASE_CHALLENGE, {
     params: {
         challenge_id: id
     }
+});
+
+export const joinChallenge = (user_id: string, challenge_id: string): Promise<AxiosResponse> => axios.get(URL + API_POINTS.JOIN_CHALLENGE, {
+    params: {
+        challenge_id: challenge_id,
+        user_id: user_id
+          }
 });
 
 export const getInfo = (id: string|null = null): Promise<AxiosResponse>  => axios.get(URL + API_POINTS.USER_INFO, {
