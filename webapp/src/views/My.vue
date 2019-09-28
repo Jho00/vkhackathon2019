@@ -72,6 +72,7 @@
             return {
                 createMode: false,
                 challenge: {
+                    user_id: this.$store.getters.userId,
                     name: '',
                     description: '',
                     num: 2,

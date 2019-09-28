@@ -80,14 +80,12 @@ export default new Vuex.Store({
       }).catch(() => context.commit('error'));
     },
 
-
     joinChallenge(context, {challenge_id}) {
       if (context.state.guid === null) return;
       joinChallenge(context.state.guid, challenge_id).then(json => {
         context.commit('challengeJoined');
       }).catch(() => context.commit('error'));
     },
-
 
     getInfo(context) {
       getInfo(context.state.guid).then(json => {

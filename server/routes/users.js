@@ -127,8 +127,6 @@ router.get('/info', function (req, res, next) {
 				.db(dbinfo.db)
 				.collection(dbinfo.usersCollection)
 				.findOne({"_id": user_id}, function (error, result) {
-
-
 					if (error) {
 						res.send({status: "error"});
 						client.close();
