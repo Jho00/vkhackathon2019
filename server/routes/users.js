@@ -149,7 +149,6 @@ router.get('/info', function (req, res, next) {
 							.collection(dbinfo.challengesCollection)
 							.find({})
 							.toArray(function (er, challenges) {
-								console.log(challenges);
 								res.send({
 									status: "success",
 									data: {
@@ -174,6 +173,15 @@ router.get('/info', function (req, res, next) {
 													el.users
 													.map(usr => usr._id)
 													.indexOf(user_id) != -1).length,
+										"expiredChallenges":
+											challenges
+												.filter(el =>
+													el.status == "passed")
+												.filter(el =>
+													el.users
+													.map(usr => usr._id)
+													.indexOf(user_id) != -1)
+													.map(el => el._id)
 								}});
 								client.close();
 							});

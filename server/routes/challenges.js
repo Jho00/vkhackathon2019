@@ -217,4 +217,71 @@ router.get('/accept', function (req, res) {
 	})
 })
 
+router.post('/vote', function (req, res) {
+	let user_id = req.body.user_id;
+	let challenge_id = req.body.challenge_id;
+	let votedUsers = req.body.votes;
+
+	dbclient.connect(function(connErr, client) {
+		if (connErr) {
+			console.log(connErr);
+			res.send({ status: "error" });
+			dbclient.close();
+		} else {
+
+			client
+				.db(dbinfo.db)
+				.collection(dbinfo.challengesCollection)
+				.findOne(
+					{ "_id": new ObjectID(challenge_id) },
+					function (chgErr, challenge) {
+						if (chgErr) {
+							console.log(chgErr);
+							res.send({ status: "error" });
+							dbclient.close();
+						} else {
+
+							let chgUsers = challenge.users;
+							let currUsr = chgUsers.find(usr => usr._id == user_id);
+
+							votedUsers = currUsr.voted
+								? chgUsers
+								: votedUsers.map(votedUser => {
+									let usr = chgUsers.find(usr => usr._id == votedUser._id);
+									
+									if (!usr.votes) {
+										usr.votes = 0;
+									}
+									if (votedUser.voted) {
+										usr.votes++;
+									}
+									if (usr._id == user_id) {
+										usr.voted = true;
+									}
+
+									return usr;
+								});
+
+							client
+								.db(dbinfo.db)
+								.collection(dbinfo.challengesCollection)
+								.updateOne(
+									{ "_id": new ObjectID(challenge_id) },
+									{ $set: { users: votedUsers }
+								}, function (updErr, data) {
+									if (updErr) {
+										console.log(updErr);
+										res.send({ status: "error" });
+										dbclient.close();
+									} else {
+										res.send({ status: "success" });
+										dbclient.close();
+									}
+								});
+						}
+					});
+		}
+	})
+});
+
 module.exports = router;
