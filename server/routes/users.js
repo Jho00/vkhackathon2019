@@ -72,6 +72,51 @@ router.get('/auth', function (req, res, next) {
 		});
 });
 
+router.get('/mauth', function (req, res) {
+	let user_id = req.query.user_id;
+
+	var db = new DBClinet(dbinfo.connStr, { useNewUrlParser: true, useUnifiedTopology: true });
+
+	db.connect(function(connErr, client) {
+		if (connErr) {
+			console.log(connErr);
+			res.send({ status: "error" });
+			db.close();
+		} else {
+			client
+				.db(dbinfo.db)
+				.collection(dbinfo.usersCollection)
+				.findOne({ "_id": user_id }, function (usrErr, usr) {
+					if (usrErr) {
+						console.log(usrErr);
+						res.send({ status: "error" });
+						db.close();
+					} else if (usr) {
+						res.send({ status: "success" });
+						db.close();
+					} else {
+						client
+							.db(dbinfo.db)
+							.collection(dbinfo.usersCollection)
+							.insertOne({
+									"_id": user_id,
+									"money": 1000
+								}, function(err, insertResult) {
+									if (err) {
+										console.log(err);
+										res.send({ status: "error" });
+										db.close();
+									}
+
+									res.send({ status: "success" });
+									db.close();
+							})
+					}
+				})
+		}
+	})
+});
+
 router.post('/add-money', function (req, res, next) {
 	const count = Number(req.body.count);
 	const id = req.body.user_id;
