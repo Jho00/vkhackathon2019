@@ -20,7 +20,7 @@ interface UserApiService {
 
     object Factory {
 
-        val URL = "http://192.168.137.1:3000/"
+        val URL = "http://demo133.foxtrot.vkhackathon.com:3000/"
 
         fun create(): UserApiService {
             val retrofit = Retrofit.Builder()
