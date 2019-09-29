@@ -194,10 +194,12 @@ router.get('/info', function (req, res, next) {
 							.collection(dbinfo.challengesCollection)
 							.find({})
 							.toArray(function (er, challenges) {
+								let resp = {}
+								if(usrdb.data && usrdb.data.response && usrdb.data.response.length) resp = usrdb.data.response[0]
 								res.send({
 									status: "success",
 									data: {
-										...usrdb.data.response[0],
+										...resp,
 										money,
 										"ownChallengesCount":
 											challenges.filter(el => 
