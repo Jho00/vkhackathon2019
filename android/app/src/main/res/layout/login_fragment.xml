@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/loginPageBackgroundColor"
+    tools:context=".views.fragments.LoginFragment"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:id="@+id/LoginFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clipChildren="false"
+        android:clipToPadding="false"
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:paddingTop="16dp">
+
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="48dp"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="@string/MainAppName"
+            app:srcCompat="@android:drawable/ic_menu_info_details" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="132dp"
+            android:text="@string/MainAppName"
+            android:textAllCaps="true"
+            android:textSize="16sp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="@dimen/PrimaryButtonWidth"
+            android:layout_height="@dimen/PrimaryButtonHeight"
+            android:text="@string/LoginText"
+            android:backgroundTint="@color/vkButtonBackground"
+            android:layout_gravity="center"
+            android:id="@+id/LoginVKBtn"
+            />
+
+        <!-- Snippet from "Add text fields" section goes here. -->
+
+        <!-- Snippet from "Add buttons" section goes here. -->
+
+    </LinearLayout>
+</LinearLayout>

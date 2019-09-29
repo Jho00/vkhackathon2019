@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="PrimaryButtonWidth">220dp</dimen>
+    <dimen name="PrimaryButtonHeight">64dp</dimen>
+    <dimen name="MiningButtonSize">400dp</dimen>
+    <dimen name="anim_height">200dp</dimen>
+</resources>
