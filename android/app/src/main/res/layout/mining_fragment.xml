@@ -13,7 +13,7 @@
         android:layout_gravity="center"
         android:textSize="20sp"
         android:text="@string/MiningText"
-        android:background="@drawable/round_fiber_manual_record_24"
+        android:background="@drawable/mining_btn_state"
         android:insetTop="0dp"
         android:insetBottom="0dp"
         />

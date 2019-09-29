@@ -66,11 +66,11 @@ class InfoListAdapter(
         return objects.size
     }
 
-}
+    private class ViewHolder {
+        internal var title: TextView? = null
+        internal var description: TextView? = null
+        internal var drawable: ImageView? = null
+        internal var position: Int = 0
+    }
 
-private class ViewHolder {
-    internal var title: TextView? = null
-    internal var description: TextView? = null
-    internal var drawable: ImageView? = null
-    internal var position: Int = 0
 }

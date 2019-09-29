@@ -1,9 +1,8 @@
 package ru.stollmanSquad.orbiapp.models
 
-class User(
-        guid : String,
-        mob_token : String,
-        name : String
-        ) {
-
-}
+data class User(
+        val guid : String,
+        val mob_token : String,
+        val name : String,
+        val money : Int
+        )

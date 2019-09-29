@@ -11,4 +11,7 @@
     <string name="FirstName">Имя</string>
     <string name="LastName">Фамилия</string>
     <string name="Stroke">Инсульт</string>
+    <string name="Account">Аккаунт</string>
+    <string name="MyChallenges">Мои</string>
+    <string name="Challenges">Испытания</string>
 </resources>

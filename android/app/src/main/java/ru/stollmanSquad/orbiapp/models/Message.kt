@@ -1,8 +1,6 @@
 package ru.stollmanSquad.orbiapp.models
 
-class Message(
-        guid : String,
-        message : String
-) {
-
-}
+data class Message(
+        val guid : String,
+        val message : String
+)

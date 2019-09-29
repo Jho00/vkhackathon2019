@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">http://demo133.foxtrot.vkhackathon.com:3000</domain>
+        <domain includeSubdomains="true">http://demo133.foxtrot.vkhackathon.com</domain>
+        <domain includeSubdomains="true">demo133.foxtrot.vkhackathon.com</domain>
+        <domain includeSubdomains="true">192.168.137.1:3000</domain>
+        <domain includeSubdomains="true">192.168.137.1</domain>
+    </domain-config>
+</network-security-config>

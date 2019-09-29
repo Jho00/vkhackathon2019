@@ -2,6 +2,7 @@ package ru.stollmanSquad.orbiapp.views
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.vk.api.sdk.VK
@@ -11,62 +12,81 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import ru.stollmanSquad.orbiapp.R
-import ru.stollmanSquad.orbiapp.fragments.*
+import ru.stollmanSquad.orbiapp.api.UserApiService
+import ru.stollmanSquad.orbiapp.common.CommonStore
+import ru.stollmanSquad.orbiapp.common.DataStore
 import ru.stollmanSquad.orbiapp.views.fragments.*
 import ru.stollmanSquad.orbiapp.views.fragments.navigator.NavigationHost
 
 class MainActivity : AppCompatActivity(), NavigationHost {
 
-    private val TAG: String = MainActivity::class.java.simpleName
+    private val logTAG: String = MainActivity::class.java.simpleName
+    var currentFragment : Fragment? = null
+    var bottomMenuNav : BottomNavigationView? = null
+    val bottomMenuMap : HashMap<Int, Fragment> = HashMap()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
 
+        setUpMenuBtnEvents()
+
         if (savedInstanceState == null) {
             navigateTo(LoginFragment(), false)
         }
-        setUpMenuBtnEvents()
+        val data = DataStore(this)
+        val uid = data.get(CommonStore.USER_ID)
+        if(uid.isNotEmpty()){
+            val userApi = UserApiService.Factory.create()
+            userApi.authByToken(uid)
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.io())
+                    .subscribe (
+                            { result ->
+                                Log.d("Login", "$result.data")
+                                userApi.userInfo(uid)
+                                        .observeOn(AndroidSchedulers.mainThread())
+                                        .subscribeOn(Schedulers.io())
+                                        .subscribe (
+                                                { result1 ->
+                                                    data!!.put(CommonStore.USER_MONEY, result1.data!!.money.toString())
+                                                },
+                                                { error->error.printStackTrace()
+                                                    Toast.makeText(baseContext, "Err ${error.message}", Toast.LENGTH_SHORT).show()
+                                                }
+                                        )
+                            },
+
+                            { error -> error.printStackTrace()
+                                Toast.makeText(baseContext, "Err ${error.message}", Toast.LENGTH_SHORT).show()
+                            })
+        }
+
     }
 
     private fun setUpMenuBtnEvents(){
-        val nav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
-        nav.setOnNavigationItemSelectedListener {
-            when (it.itemId) {
-                R.id.action_mining -> {
-                    navigateTo(MiningFragment(), false)
-                }
-                R.id.action_challenge -> {
-                    navigateTo(ChallengesFragment(), false)
-                }
-                R.id.action_my_challenges ->{
-                    navigateTo(MainChallengesFragment(), false)
-                }
-                R.id.action_account -> {
-                    navigateTo(AccountFragment(), false)
-                }
-                R.id.action_info -> {
-                    navigateTo(InfoFragment(), false)
-                }
+        bottomMenuMap[R.id.action_mining] = MiningFragment()
+        bottomMenuMap[R.id.action_challenge] = ChallengesFragment()
+        bottomMenuMap[R.id.action_my_challenges] = MainChallengesFragment()
+        bottomMenuMap[R.id.action_account] = AccountFragment()
+        bottomMenuMap[R.id.action_info] = InfoFragment()
+
+        bottomMenuNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
+        bottomMenuNav!!.setOnNavigationItemSelectedListener {
+            val fragment : Fragment? = bottomMenuMap[it.itemId]
+            if(currentFragment != fragment){
+                navigateTo(fragment!!, false)
             }
             true
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        val callback = object: VKAuthCallback {
-            override fun onLogin(token: VKAccessToken) {
-                Log.d(TAG, "токен получен: ${token.accessToken}")
-                navigateTo(ChallengesFragment(), false)
-            }
-
-            override fun onLoginFailed(errorCode: Int) {
-                Toast.makeText(baseContext, "Ошибка", Toast.LENGTH_SHORT).show()
-                Log.d(TAG, "код ошибки: $errorCode")
-            }
-        }
-        if (data == null || !VK.onActivityResult(requestCode, resultCode, data, callback)) {
+        if(!(currentFragment is LoginFragment &&
+            (currentFragment as LoginFragment).isLoginResult(requestCode, resultCode, data))){
             super.onActivityResult(requestCode, resultCode, data)
         }
     }
@@ -80,7 +100,7 @@ class MainActivity : AppCompatActivity(), NavigationHost {
     override fun navigateTo(fragment: Fragment, addToBackstack: Boolean) {
         val transaction = supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.container, fragment)
+                .replace(R.id.container, fragment, "MAIN_FRAGMENT")
 
         if (addToBackstack) {
             transaction.addToBackStack(null)
@@ -94,7 +114,16 @@ class MainActivity : AppCompatActivity(), NavigationHost {
             nav.visibility = View.GONE
         }else{
             nav.visibility = View.VISIBLE
-            Log.d(TAG, "view: ${fragment.javaClass.canonicalName}")
+           // Log.d(logTAG, "view: ${fragment.javaClass.canonicalName}")
+        }
+
+        currentFragment = fragment
+
+        for(p in bottomMenuMap){
+            if(p.value.javaClass == currentFragment!!.javaClass && bottomMenuNav!!.selectedItemId != p.key){
+                bottomMenuNav!!.selectedItemId = p.key
+                break
+            }
         }
     }
 }

@@ -4,31 +4,31 @@
     <item
         android:id="@+id/action_mining"
         android:enabled="true"
-        android:icon="@android:drawable/checkbox_off_background"
-        android:title="Recents"
+        android:icon="@drawable/coins_64"
+        android:title="@string/MiningText"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_challenge"
         android:enabled="true"
-        android:icon="@android:drawable/checkbox_off_background"
-        android:title="Challenge"
+        android:icon="@drawable/running_man_64"
+        android:title="@string/Challenges"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_my_challenges"
         android:enabled="true"
-        android:icon="@android:drawable/checkbox_off_background"
-        android:title="My challenges"
+        android:icon="@drawable/note_64"
+        android:title="@string/MyChallenges"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_account"
         android:enabled="true"
-        android:icon="@android:drawable/checkbox_off_background"
-        android:title="Account"
+        android:icon="@drawable/avatar_64"
+        android:title="@string/Account"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_info"
         android:enabled="true"
-        android:icon="@android:drawable/checkbox_off_background"
-        android:title="Info"
+        android:icon="@drawable/open_book_64"
+        android:title="@string/Stroke"
         app:showAsAction="ifRoom" />
 </menu>

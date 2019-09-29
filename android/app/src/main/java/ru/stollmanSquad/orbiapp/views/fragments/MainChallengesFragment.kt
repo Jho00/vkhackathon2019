@@ -7,7 +7,12 @@ import android.view.ViewGroup
 import android.widget.ListView
 import androidx.fragment.app.Fragment
 import com.google.android.material.button.MaterialButton
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import ru.stollmanSquad.orbiapp.R
+import ru.stollmanSquad.orbiapp.api.ChallengeApiService
+import ru.stollmanSquad.orbiapp.common.CommonStore
+import ru.stollmanSquad.orbiapp.common.DataStore
 import ru.stollmanSquad.orbiapp.views.adapters.ChallengesListAdapter
 import ru.stollmanSquad.orbiapp.models.Challenge
 
@@ -19,21 +24,24 @@ class MainChallengesFragment(
 
 
     private lateinit var challengesList : ListView
-    private var currentMode : Boolean = false
+    private var currentMode : Boolean = true
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-
-        // Snippet from "Navigate to the next Fragment" section goes here.
 
         val view = inflater.inflate(R.layout.main_challenges_fragment, container, false)
 
         challengesList = view.findViewById(R.id.ChallengesList)
         updateChallenges()
 
-        view.findViewById<MaterialButton>(R.id.MainChallengesBtn).setOnClickListener { requestMyChallenges()  }
-        view.findViewById<MaterialButton>(R.id.ComplitedChallengesBtn).setOnClickListener { requestComplitedChallenges()  }
+        view.findViewById<MaterialButton>(R.id.MainChallengesBtn).setOnClickListener {
+            currentMode = true
+            updateChallenges()
+        }
+        view.findViewById<MaterialButton>(R.id.ComplitedChallengesBtn).setOnClickListener {
+            currentMode = false
+            updateChallenges()
+        }
 
         return view
     }
@@ -47,13 +55,33 @@ class MainChallengesFragment(
     }
 
     private fun requestMyChallenges(){
-        //TODO: ("ADD: Request challenges ")
+        val dataStore = DataStore(context!!)
+        val repository = ChallengeApiService.Factory.create()
+        repository.getMyChallenges(dataStore.get(CommonStore.USER_ID))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe ({
+                    result ->
+                    onReceiveChallenges(result.data!!.toList())
+                }, { error ->
+                    error.printStackTrace()
+                })
     }
     private fun requestComplitedChallenges(){
-        //TODO: ("ADD: Request challenges ")
+        val dataStore = DataStore(context!!)
+        val repository = ChallengeApiService.Factory.create()
+        repository.getActiveChallenges(dataStore.get(CommonStore.USER_ID))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe ({
+                    result ->
+                    onReceiveChallenges(result.data!!.toList())
+                }, { error ->
+                    error.printStackTrace()
+                })
     }
 
-    fun onReceiveChallenges(challenges : ArrayList<Challenge>){
+    fun onReceiveChallenges(challenges : List<Challenge>){
         challengesList.adapter = ChallengesListAdapter(context!!, challenges)
     }
 

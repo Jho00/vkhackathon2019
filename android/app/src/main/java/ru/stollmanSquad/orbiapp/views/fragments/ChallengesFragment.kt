@@ -7,7 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ListView
 import androidx.fragment.app.Fragment
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import ru.stollmanSquad.orbiapp.R
+import ru.stollmanSquad.orbiapp.api.ChallengeApiService
 import ru.stollmanSquad.orbiapp.views.adapters.ChallengesListAdapter
 import ru.stollmanSquad.orbiapp.models.Challenge
 
@@ -27,27 +30,33 @@ class ChallengesFragment(
 
         val view = inflater.inflate(R.layout.challenges_fragment, container, false)
 
-        Log.d("CHALLENGES", "view is ${view}")
+        //Log.d("CHALLENGES", "view is ${view}")
 
         challengesList = view.findViewById<ListView>(R.id.ChallengesList)
 
-        //TODO: ("ADD: Request challenges ")
-
         onReceiveChallenges(arrayListOf(
-                Challenge("Test","TETSTSTST", 100,"3 дня"),
-                Challenge("Test1","TETSTSTST", 400,"3 дня"),
-                Challenge("Test2","TETSTSTST", 100,"3 дня"),
-                Challenge("Test3","TETSTSTST", 100,"3 дня"),
-                Challenge("Test4","TETSTSTST", 100,"3 дня"),
-                Challenge("Test5","TETSTSTST", 100,"3 дня"),
-                Challenge("Test6","TETSTSTST", 100,"3 дня"),
-                Challenge("Test7","TETSTSTST", 100,"3 дня")
+                Challenge("","Test","TETSTSTST", 100,"3 дня")
         ))
+
+        val repository = ChallengeApiService.Factory.create()
+        repository.getChellenge()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.io())
+                .subscribe ({
+                    result ->
+                    val data = result.data
+                    if(data != null)
+                        onReceiveChallenges(data.toList())
+                    else
+                        onReceiveChallenges(arrayListOf())
+                }, { error ->
+                    error.printStackTrace()
+                })
 
         return view
     }
 
-    fun onReceiveChallenges(challenges : ArrayList<Challenge>){
+    fun onReceiveChallenges(challenges : List<Challenge>){
         challengesList.adapter = ChallengesListAdapter(context!!, challenges)
     }
 
