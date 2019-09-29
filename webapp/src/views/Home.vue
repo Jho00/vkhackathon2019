@@ -47,7 +47,7 @@ export default Vue.extend({
   name: 'home',
   data() {
     return {
-      redirect_uri: `http://127.0.0.1:8080/redirect`,
+      redirect_uri: `http://95.213.39.133:8080/redirect`,
       active: 0
     }
   },

@@ -11,7 +11,7 @@ router.get('/auth', function (req, res, next) {
 	axios.get("https://oauth.vk.com/access_token", {
 		params: {
 			code: code,
-			redirect_uri: "http://127.0.0.1:8080/redirect",
+			redirect_uri: "http://95.213.39.133:8080/redirect",
 			client_secret: "UvqccxvCevnGOxsjoqFy",
 			client_id: "7150584"
 		}
